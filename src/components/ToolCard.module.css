@@ -1,0 +1,72 @@
+.card {
+    display: block;
+    position: relative;
+    padding: 2rem;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 1px solid #333;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: #555;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+.name {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+}
+
+.tagline {
+    font-size: 0.875rem;
+    color: #999;
+    margin: 0 0 1rem 0;
+    font-style: italic;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ccc;
+    margin: 0;
+}
+
+.linkIcon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.card:hover .linkIcon {
+    color: #fff;
+}
