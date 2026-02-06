@@ -30,11 +30,32 @@ export default function AdminPage() {
         }
     }, [isAuthenticated]);
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Store password in sessionStorage for API calls
-        sessionStorage.setItem('adminPassword', password);
-        setIsAuthenticated(true);
+        setLoading(true);
+
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ password }),
+            });
+
+            if (res.ok) {
+                // Store password in sessionStorage for API calls
+                sessionStorage.setItem('adminPassword', password);
+                setIsAuthenticated(true);
+            } else {
+                alert('パスワードが間違っています');
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            alert('ログインに失敗しました');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const fetchPosts = async () => {
@@ -130,8 +151,8 @@ export default function AdminPage() {
                             className={styles.input}
                             required
                         />
-                        <button type="submit" className={styles.button}>
-                            ログイン
+                        <button type="submit" className={styles.button} disabled={loading}>
+                            {loading ? 'ログイン中...' : 'ログイン'}
                         </button>
                     </form>
                 </div>

@@ -69,28 +69,61 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 // Create or update a post
-export function savePost(slug: string, title: string, content: string): void {
-    ensurePostsDirectory();
+export async function savePost(slug: string, title: string, content: string): Promise<void> {
+    // In production (Vercel), use GitHub API
+    if (process.env.VERCEL || process.env.GITHUB_TOKEN) {
+        const { createOrUpdateFile } = await import('./github');
+        const date = new Date().toISOString();
 
-    const fullPath = path.join(postsDirectory, `${slug}.md`);
-    const date = new Date().toISOString();
+        const fileContent = matter.stringify(content, {
+            title,
+            date,
+        });
 
-    const fileContent = matter.stringify(content, {
-        title,
-        date,
-    });
+        const path = `content/posts/${slug}.md`;
+        const message = `Update post: ${title}`;
 
-    fs.writeFileSync(fullPath, fileContent, 'utf8');
+        await createOrUpdateFile(path, fileContent, message);
+    } else {
+        // In development, use local filesystem
+        ensurePostsDirectory();
+
+        const fullPath = path.join(postsDirectory, `${slug}.md`);
+        const date = new Date().toISOString();
+
+        const fileContent = matter.stringify(content, {
+            title,
+            date,
+        });
+
+        fs.writeFileSync(fullPath, fileContent, 'utf8');
+    }
 }
 
 // Delete a post
-export function deletePost(slug: string): boolean {
-    const fullPath = path.join(postsDirectory, `${slug}.md`);
+export async function deletePost(slug: string): Promise<boolean> {
+    // In production (Vercel), use GitHub API
+    if (process.env.VERCEL || process.env.GITHUB_TOKEN) {
+        const { deleteFile } = await import('./github');
+        const path = `content/posts/${slug}.md`;
+        const message = `Delete post: ${slug}`;
 
-    if (!fs.existsSync(fullPath)) {
-        return false;
+        try {
+            await deleteFile(path, message);
+            return true;
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            return false;
+        }
+    } else {
+        // In development, use local filesystem
+        const fullPath = path.join(postsDirectory, `${slug}.md`);
+
+        if (!fs.existsSync(fullPath)) {
+            return false;
+        }
+
+        fs.unlinkSync(fullPath);
+        return true;
     }
-
-    fs.unlinkSync(fullPath);
-    return true;
 }

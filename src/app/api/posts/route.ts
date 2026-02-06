@@ -41,9 +41,10 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        savePost(slug, title, content);
+        await savePost(slug, title, content);
         return NextResponse.json({ success: true });
     } catch (error) {
+        console.error('Error creating post:', error);
         return NextResponse.json(
             { error: 'Failed to create post' },
             { status: 500 }
@@ -67,9 +68,10 @@ export async function PUT(request: NextRequest) {
             );
         }
 
-        savePost(slug, title, content);
+        await savePost(slug, title, content);
         return NextResponse.json({ success: true });
     } catch (error) {
+        console.error('Error updating post:', error);
         return NextResponse.json(
             { error: 'Failed to update post' },
             { status: 500 }
@@ -94,7 +96,7 @@ export async function DELETE(request: NextRequest) {
             );
         }
 
-        const success = deletePost(slug);
+        const success = await deletePost(slug);
         if (!success) {
             return NextResponse.json(
                 { error: 'Post not found' },
@@ -104,6 +106,7 @@ export async function DELETE(request: NextRequest) {
 
         return NextResponse.json({ success: true });
     } catch (error) {
+        console.error('Error deleting post:', error);
         return NextResponse.json(
             { error: 'Failed to delete post' },
             { status: 500 }
