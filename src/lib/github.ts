@@ -95,9 +95,39 @@ export async function createOrUpdateFile(
             const errorData = await response.json();
             throw new Error(`GitHub API error: ${errorData.message || response.statusText}`);
         }
+
+        // Trigger deployment after successful update
+        await triggerDeploy();
     } catch (error) {
         console.error('Error creating/updating file on GitHub:', error);
         throw error;
+    }
+}
+
+/**
+ * Trigger Vercel deploy hook
+ */
+async function triggerDeploy(): Promise<void> {
+    const deployHookUrl = process.env.VERCEL_DEPLOY_HOOK_URL;
+
+    if (!deployHookUrl) {
+        console.log('No VERCEL_DEPLOY_HOOK_URL set, skipping auto-deploy');
+        return;
+    }
+
+    try {
+        console.log('Triggering Vercel deployment...');
+        const response = await fetch(deployHookUrl, {
+            method: 'POST',
+        });
+
+        if (response.ok) {
+            console.log('Deployment triggered successfully');
+        } else {
+            console.error('Failed to trigger deployment:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error triggering deployment:', error);
     }
 }
 
@@ -136,6 +166,9 @@ export async function deleteFile(path: string, message: string): Promise<void> {
             const errorData = await response.json();
             throw new Error(`GitHub API error: ${errorData.message || response.statusText}`);
         }
+
+        // Trigger deployment after successful deletion
+        await triggerDeploy();
     } catch (error) {
         console.error('Error deleting file from GitHub:', error);
         throw error;
