@@ -9,7 +9,6 @@ export default function MiniTextPage() {
         <main className={styles.main}>
             <div className={styles.container}>
                 <h1 className={styles.title}>MiniText</h1>
-                <p className={styles.subtitle}>短い文章、思考の断片</p>
 
                 <div className={styles.grid}>
                     {posts.length === 0 ? (
