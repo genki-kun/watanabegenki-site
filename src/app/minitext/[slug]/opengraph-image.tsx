@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og';
-import { getPostBySlug } from '@/lib/posts';
 
 export const runtime = 'nodejs';
 
@@ -10,9 +9,52 @@ export const size = {
 };
 export const contentType = 'image/png';
 
+// Fetch post title from GitHub API for production
+async function getPostTitle(slug: string): Promise<string> {
+    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const GITHUB_OWNER = process.env.GITHUB_OWNER || 'genki-kun';
+    const GITHUB_REPO = process.env.GITHUB_REPO || 'watanabegenki-site';
+
+    if (!GITHUB_TOKEN) {
+        console.log('No GITHUB_TOKEN, returning fallback title');
+        return 'MiniText';
+    }
+
+    const path = `content/posts/${slug}.md`;
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json',
+            },
+            next: { revalidate: 60 }, // Cache for 60 seconds
+        });
+
+        if (!response.ok) {
+            console.log(`Failed to fetch post: ${response.status}`);
+            return 'MiniText';
+        }
+
+        const data = await response.json();
+        const content = Buffer.from(data.content, 'base64').toString('utf8');
+
+        // Parse front-matter to get title
+        const titleMatch = content.match(/^---[\s\S]*?title:\s*['"]?(.+?)['"]?\s*$/m);
+        if (titleMatch && titleMatch[1]) {
+            return titleMatch[1];
+        }
+
+        return 'MiniText';
+    } catch (error) {
+        console.error('Error fetching post title:', error);
+        return 'MiniText';
+    }
+}
+
 export default async function Image({ params }: { params: { slug: string } }) {
-    const post = getPostBySlug(params.slug);
-    const title = post?.title || 'MiniText';
+    const title = await getPostTitle(params.slug);
 
     return new ImageResponse(
         (
