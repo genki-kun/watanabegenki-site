@@ -41,9 +41,16 @@ async function getPostTitle(slug: string): Promise<string> {
         const content = Buffer.from(data.content, 'base64').toString('utf8');
 
         // Parse front-matter to get title
-        const titleMatch = content.match(/^---[\s\S]*?title:\s*['"]?(.+?)['"]?\s*$/m);
-        if (titleMatch && titleMatch[1]) {
-            return titleMatch[1];
+        const match = content.match(/^---\n([\s\S]*?)\n---/);
+        if (match) {
+            const frontMatter = match[1];
+            const titleLine = frontMatter.split('\n').find(line => line.startsWith('title:'));
+            if (titleLine) {
+                // Remove 'title:' prefix and any quotes
+                let title = titleLine.replace(/^title:\s*/, '').trim();
+                title = title.replace(/^['"]|['"]$/g, '');
+                return title;
+            }
         }
 
         return 'MiniText';
