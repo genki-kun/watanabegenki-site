@@ -64,13 +64,12 @@ export default function Scene3D() {
             audio.play().catch(err => console.log('Audio play failed:', err));
 
             // Delay model switch for effect (Sound -> Model Reveal)
-            const timer = setTimeout(() => {
+            setTimeout(() => {
                 setSelectedModel('dinosaur');
             }, 1000);
-
-            return () => clearTimeout(timer);
         }
-    }, [scale, rotationSpeed, dinoUnlocked]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scale, rotationSpeed]);
 
     // Handle manual user interaction (not autoRotate)
     const handleManualInteraction = () => {
