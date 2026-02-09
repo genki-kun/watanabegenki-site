@@ -58,11 +58,17 @@ export default function Scene3D() {
     useEffect(() => {
         if (!dinoUnlocked && scale === 3 && rotationSpeed === 2) {
             setDinoUnlocked(true);
-            setSelectedModel('dinosaur'); // Auto-switch to Dino on unlock
 
             // Play unlock sound
             const audio = new Audio('/sounds/unlock.wav');
             audio.play().catch(err => console.log('Audio play failed:', err));
+
+            // Delay model switch for effect (Sound -> Model Reveal)
+            const timer = setTimeout(() => {
+                setSelectedModel('dinosaur');
+            }, 1000);
+
+            return () => clearTimeout(timer);
         }
     }, [scale, rotationSpeed, dinoUnlocked]);
 
