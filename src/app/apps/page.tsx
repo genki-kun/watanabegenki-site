@@ -25,6 +25,7 @@ export default function AppsPage() {
                             tagline={app.tagline}
                             description={app.description}
                             url={app.url}
+                            image={app.image}
                         />
                     ))}
                 </div>
