@@ -66,4 +66,42 @@
     .link {
         font-size: 0.9rem;
     }
+
+    .link {
+        font-size: 0.9rem;
+    }
+}
+
+.socialSubHeader {
+    position: absolute;
+    top: 100%;
+    right: var(--spacing-md);
+    padding-top: 8px;
+    display: flex;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    opacity: 0.8;
+}
+
+.socialLink {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity var(--transition-fast);
+}
+
+.socialLink:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.separator {
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .socialSubHeader {
+        right: var(--spacing-sm);
+        font-size: 0.7rem;
+    }
 }

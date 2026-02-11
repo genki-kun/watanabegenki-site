@@ -29,6 +29,25 @@ export default function Navigation() {
                     </Link>
                 ))}
             </div>
+            <div className={styles.socialSubHeader}>
+                <a
+                    href="https://x.com/ashley_hegy_"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                >
+                    Twitter
+                </a>
+                <span className={styles.separator}>/</span>
+                <a
+                    href="https://www.instagram.com/genkl_kun_/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                >
+                    Instagram
+                </a>
+            </div>
         </nav>
     );
 }
