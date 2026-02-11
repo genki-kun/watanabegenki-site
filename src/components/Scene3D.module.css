@@ -250,6 +250,42 @@
     border-color: rgba(0, 0, 0, 0.2);
 }
 
+
+.socialLinks {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-sm);
+    z-index: 50;
+    align-items: center;
+}
+
+.mobileSocialLinks {
+    display: none;
+}
+
+.socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    padding: 8px;
+}
+
+.socialIcon:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    color: var(--color-text);
+}
+
 @media (max-width: 768px) {
     .controls {
         /* 1行レイアウトを維持 */
@@ -266,6 +302,7 @@
         gap: 6px;
         bottom: 16px;
     }
+
 
     .controlRow {
         display: flex;
@@ -341,39 +378,4 @@
         /* モバイルリンク分のスペースを空ける */
         bottom: 48px;
     }
-}
-
-.socialLinks {
-    position: fixed;
-    bottom: var(--spacing-lg);
-    right: var(--spacing-lg);
-    display: flex;
-    gap: var(--spacing-sm);
-    z-index: 50;
-    align-items: center;
-}
-
-.mobileSocialLinks {
-    display: none;
-}
-
-.socialIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    color: var(--color-text-secondary);
-    transition: all var(--transition-fast);
-    padding: 8px;
-}
-
-.socialIcon:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-    color: var(--color-text);
 }
