@@ -310,4 +310,47 @@
         bottom: 16px;
         left: 16px;
     }
+
+    .socialLinks {
+        bottom: 16px;
+        right: 16px;
+        gap: 8px;
+    }
+
+    .socialIcon {
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+    }
+}
+
+.socialLinks {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-sm);
+    z-index: 50;
+    align-items: center;
+}
+
+.socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    padding: 8px;
+}
+
+.socialIcon:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    color: var(--color-text);
 }
