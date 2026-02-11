@@ -27,8 +27,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#f5f5f7',
-                    backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    backgroundColor: 'white',
                 }}
             >
                 <div
@@ -45,11 +44,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                         style={{
                             fontSize: 72,
                             fontWeight: 'bold',
-                            color: 'white',
+                            color: 'black',
                             textAlign: 'center',
                             margin: 0,
                             lineHeight: 1.2,
-                            textShadow: '2px 2px 10px rgba(0,0,0,0.3)',
                         }}
                     >
                         {title}
@@ -57,7 +55,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                     <p
                         style={{
                             fontSize: 32,
-                            color: 'rgba(255,255,255,0.8)',
+                            color: 'rgba(0,0,0,0.5)',
                             marginTop: 30,
                         }}
                     >
