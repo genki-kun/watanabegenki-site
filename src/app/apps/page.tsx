@@ -7,7 +7,8 @@ export default function AppsPage() {
             name: 'AntiReality',
             tagline: 'Rendering Truth Fictional',
             description: 'AntiRealityは実際に撮った写真や非AI生成物にウォーターマークを付与することで真実性を歪めるアプリケーションです。',
-            url: 'https://antireality.jp/'
+            url: 'https://antireality.jp/',
+            image: '/apps/antireality.png'
         }
     ];
 

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ToolCard.module.css';
 
@@ -6,11 +7,23 @@ interface ToolCardProps {
     tagline: string;
     description: string;
     url: string;
+    image?: string;
 }
 
-export default function ToolCard({ name, tagline, description, url }: ToolCardProps) {
+export default function ToolCard({ name, tagline, description, url, image }: ToolCardProps) {
     return (
         <Link href={url} target="_blank" rel="noopener noreferrer" className={styles.card}>
+            {image && (
+                <div className={styles.imageWrapper}>
+                    <Image
+                        src={image}
+                        alt={`${name} cover`}
+                        fill
+                        className={styles.image}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                </div>
+            )}
             <div className={styles.content}>
                 <h2 className={styles.name}>{name}</h2>
                 <p className={styles.tagline}>{tagline}</p>
