@@ -17,10 +17,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
     console.log(`[OGP] Generating image for slug: ${slug}, title: ${title}`);
 
-    // Fetch local Noto Sans JP Black font from public directory
-    const fontUrl = new URL('/fonts/NotoSansJP-Black.woff2', 'https://watanabegenki-site.vercel.app');
-    const fontData = await fetch(fontUrl).then((res) => res.arrayBuffer());
-
     return new ImageResponse(
         (
             <div
@@ -46,7 +42,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                 >
                     <h1
                         style={{
-                            fontFamily: 'Noto Sans JP',
                             fontSize: 72,
                             fontWeight: 900,
                             color: 'black',
@@ -71,14 +66,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         ),
         {
             ...size,
-            fonts: [
-                {
-                    name: 'Noto Sans JP',
-                    data: fontData,
-                    weight: 900,
-                    style: 'normal',
-                },
-            ],
         }
     );
 }
