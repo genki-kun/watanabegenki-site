@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { getPostBySlug } from '@/lib/posts';
 
 export const runtime = 'nodejs';
 
@@ -9,69 +10,11 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-// Fetch post title from GitHub API for production
-async function getPostTitle(slug: string): Promise<string> {
-    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-    const GITHUB_OWNER = process.env.GITHUB_OWNER || 'genki-kun';
-    const GITHUB_REPO = process.env.GITHUB_REPO || 'watanabegenki-site';
-
-    if (!GITHUB_TOKEN) {
-        console.error('[OGP] No GITHUB_TOKEN found');
-        return 'MiniText';
-    }
-
-    const path = `content/posts/${slug}.md`;
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}?ref=main`;
-
-    console.log(`[OGP] Fetching: ${url}`);
-
-    try {
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'User-Agent': 'watanabegenki-site',
-            },
-            cache: 'no-store',
-        });
-
-        console.log(`[OGP] Response status: ${response.status}`);
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`[OGP] GitHub API error: ${response.status} - ${errorText}`);
-            return 'MiniText';
-        }
-
-        const data = await response.json();
-        const content = Buffer.from(data.content, 'base64').toString('utf8');
-
-        console.log(`[OGP] Content fetched, parsing front-matter...`);
-
-        // Parse front-matter to get title
-        const match = content.match(/^---\n([\s\S]*?)\n---/);
-        if (match) {
-            const frontMatter = match[1];
-            const titleLine = frontMatter.split('\n').find(line => line.startsWith('title:'));
-            if (titleLine) {
-                // Remove 'title:' prefix and any quotes
-                let title = titleLine.replace(/^title:\s*/, '').trim();
-                title = title.replace(/^['"]|['"]$/g, '');
-                console.log(`[OGP] Title found: ${title}`);
-                return title;
-            }
-        }
-
-        console.error('[OGP] No title found in front-matter');
-        return 'MiniText';
-    } catch (error) {
-        console.error('[OGP] Error fetching post title:', error);
-        return 'MiniText';
-    }
-}
-
 export default async function Image({ params }: { params: { slug: string } }) {
-    const title = await getPostTitle(params.slug);
+    const post = getPostBySlug(params.slug);
+    const title = post?.title || 'MiniText';
+
+    console.log(`[OGP] Generating image for slug: ${params.slug}, title: ${title}`);
 
     return new ImageResponse(
         (
