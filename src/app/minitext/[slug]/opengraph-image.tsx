@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getPostBySlug } from '@/lib/posts';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 
@@ -16,6 +18,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     const title = post?.title || 'MiniText';
 
     console.log(`[OGP] Generating image for slug: ${slug}, title: ${title}`);
+
+    // Load local Noto Sans JP Black font
+    const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSansJP-Black.woff2');
+    const fontData = fs.readFileSync(fontPath);
 
     return new ImageResponse(
         (
@@ -42,6 +48,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                 >
                     <h1
                         style={{
+                            fontFamily: 'Noto Sans JP',
                             fontSize: 72,
                             fontWeight: 900,
                             color: 'black',
@@ -66,6 +73,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         ),
         {
             ...size,
+            fonts: [
+                {
+                    name: 'Noto Sans JP',
+                    data: fontData,
+                    weight: 900,
+                    style: 'normal',
+                },
+            ],
         }
     );
 }
