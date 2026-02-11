@@ -3,7 +3,7 @@ import { getPostBySlug } from '@/lib/posts';
 
 export const runtime = 'nodejs';
 
-export const alt = 'MiniText Article';
+export const alt = 'watanabegenki.com Article';
 export const size = {
     width: 1200,
     height: 630,
@@ -13,7 +13,7 @@ export const contentType = 'image/png';
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const post = getPostBySlug(slug);
-    const title = post?.title || 'MiniText';
+    const title = post?.title || 'watanabegenki.com';
 
     console.log(`[OGP] Generating image for slug: ${slug}, title: ${title}`);
 
@@ -59,7 +59,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                             marginTop: 30,
                         }}
                     >
-                        MiniText
+                        watanabegenki.com
                     </p>
                 </div>
             </div>
