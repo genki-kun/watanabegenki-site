@@ -6,7 +6,7 @@ export default function AppsPage() {
         {
             name: 'AntiReality',
             tagline: 'Rendering Truth Fictional',
-            description: '写真を非現実的なビジュアルに変換する画像加工ツール。真実をフィクションのように見せる独自の加工技術を提供します。',
+            description: 'AntiRealityは実際に撮った写真や非AI生成物にウォーターマークを付与することで真実性を歪めるアプリケーションです。',
             url: 'https://antireality.jp/'
         }
     ];
