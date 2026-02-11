@@ -9,7 +9,7 @@ export default function Navigation() {
 
     const links = [
         { href: '/minitext', label: 'MiniText' },
-        { href: '/tools', label: 'Tools' },
+        { href: '/apps', label: 'Apps' },
         { href: '/shop', label: 'Shop' },
     ];
 
