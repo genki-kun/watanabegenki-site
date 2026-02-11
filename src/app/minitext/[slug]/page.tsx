@@ -10,6 +10,38 @@ export async function generateStaticParams() {
     }));
 }
 
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ slug: string }>
+}) {
+    const { slug } = await params;
+    const post = getPostBySlug(slug);
+
+    if (!post) {
+        return {
+            title: 'Not Found',
+        };
+    }
+
+    return {
+        title: post.title,
+        description: post.content.slice(0, 100).replace(/\n/g, ' ') + '...',
+        openGraph: {
+            title: post.title,
+            description: post.content.slice(0, 100).replace(/\n/g, ' ') + '...',
+            type: 'article',
+            publishedTime: post.date,
+            url: `https://watanabegenki.com/minitext/${slug}`,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.content.slice(0, 100).replace(/\n/g, ' ') + '...',
+        },
+    };
+}
+
 export default async function PostPage({
     params
 }: {
