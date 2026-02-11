@@ -178,6 +178,25 @@ export default function Scene3D() {
                 </a>
             </div>
 
+            {/* Mobile Social Links (Text) */}
+            <div className={styles.mobileSocialLinks}>
+                <a
+                    href="https://x.com/ashley_hegy_"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Twitter
+                </a>
+                <span className={styles.separator}>/</span>
+                <a
+                    href="https://www.instagram.com/genkl_kun_/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Instagram
+                </a>
+            </div>
+
             {/* Control Panel */}
             {showControls && (
                 <div className={styles.controls}>

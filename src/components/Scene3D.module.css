@@ -312,15 +312,34 @@
     }
 
     .socialLinks {
-        bottom: 16px;
-        right: 16px;
-        gap: 8px;
+        display: none;
     }
 
-    .socialIcon {
-        width: 32px;
-        height: 32px;
-        padding: 6px;
+    .mobileSocialLinks {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 52;
+        /* controls(50)より上に */
+        font-size: 0.75rem;
+        color: var(--color-text-secondary);
+        background: rgba(255, 255, 255, 0.8);
+        padding: 4px 12px;
+        border-radius: 12px;
+        backdrop-filter: blur(4px);
+    }
+
+    .separator {
+        opacity: 0.5;
+    }
+
+    .controls {
+        /* モバイルリンク分のスペースを空ける */
+        bottom: 48px;
     }
 }
 
@@ -332,6 +351,10 @@
     gap: var(--spacing-sm);
     z-index: 50;
     align-items: center;
+}
+
+.mobileSocialLinks {
+    display: none;
 }
 
 .socialIcon {
