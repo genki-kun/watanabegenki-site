@@ -1,7 +1,5 @@
 import { ImageResponse } from 'next/og';
 import { getPostBySlug } from '@/lib/posts';
-import fs from 'fs';
-import path from 'path';
 
 export const runtime = 'nodejs';
 
@@ -19,9 +17,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
     console.log(`[OGP] Generating image for slug: ${slug}, title: ${title}`);
 
-    // Load local Noto Sans JP Black font
-    const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSansJP-Black.woff2');
-    const fontData = fs.readFileSync(fontPath);
+    // Fetch local Noto Sans JP Black font from public directory
+    const fontUrl = new URL('/fonts/NotoSansJP-Black.woff2', 'https://watanabegenki-site.vercel.app');
+    const fontData = await fetch(fontUrl).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
         (
