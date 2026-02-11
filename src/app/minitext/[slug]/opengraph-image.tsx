@@ -17,6 +17,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
     console.log(`[OGP] Generating image for slug: ${slug}, title: ${title}`);
 
+    // Fetch Noto Sans JP Black font
+    const fontData = await fetch(
+        'https://fonts.gstatic.com/s/notosansjp/v52/-F6jfjtqLzI2JPCgQBnw7HFyzSD-AsregP8VFBEi75vY0rw-oME.woff',
+        {
+            cache: 'force-cache',
+        }
+    ).then((res) => res.arrayBuffer());
+
     return new ImageResponse(
         (
             <div
@@ -42,8 +50,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                 >
                     <h1
                         style={{
+                            fontFamily: 'Noto Sans JP',
                             fontSize: 72,
-                            fontWeight: 'bold',
+                            fontWeight: 900,
                             color: 'black',
                             textAlign: 'center',
                             margin: 0,
@@ -66,6 +75,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         ),
         {
             ...size,
+            fonts: [
+                {
+                    name: 'Noto Sans JP',
+                    data: fontData,
+                    weight: 900,
+                    style: 'normal',
+                },
+            ],
         }
     );
 }
