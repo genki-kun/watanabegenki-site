@@ -15,7 +15,7 @@ export default function ToolsPage() {
         <main className={styles.main}>
             <div className={styles.container}>
                 <h1 className={styles.title}>Tools</h1>
-                <p className={styles.subtitle}>個人開発したツール</p>
+
                 <div className={styles.grid}>
                     {tools.map((tool) => (
                         <ToolCard
