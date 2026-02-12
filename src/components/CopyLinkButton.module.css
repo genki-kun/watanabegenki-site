@@ -1,0 +1,31 @@
+.button {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-text);
+    border-color: var(--color-text-secondary);
+}
+
+.copied {
+    color: #4CAF50;
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}

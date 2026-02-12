@@ -1,6 +1,7 @@
 import { getPostBySlug, getAllPosts } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import CopyLinkButton from '@/components/CopyLinkButton';
 import styles from './post.module.css';
 
 export async function generateStaticParams() {
@@ -63,13 +64,16 @@ export default async function PostPage({
 
                 <header className={styles.header}>
                     <h1 className={styles.title}>{post.title}</h1>
-                    <time className={styles.date}>
-                        {new Date(post.date).toLocaleDateString('ja-JP', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                        })}
-                    </time>
+                    <div className={styles.meta}>
+                        <time className={styles.date}>
+                            {new Date(post.date).toLocaleDateString('ja-JP', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
+                        </time>
+                        <CopyLinkButton />
+                    </div>
                 </header>
 
                 <div className={styles.content}>
