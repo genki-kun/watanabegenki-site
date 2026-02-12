@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Development History & How to Resume
+
+このプロジェクトの開発履歴、タスク状況、実装計画は `docs/development_log/` ディレクトリに保存されています。
+開発を再開する際は、以下のファイルを参照してください：
+
+- **Task History**: `docs/development_log/task_history_2026-02-12.md`
+- **Walkthrough**: `docs/development_log/walkthrough_2026-02-12.md`
+- **Implementation Plan**: `docs/development_log/implementation_plan_2026-02-12.md`
+
+AIエージェント（Antigravity等）を使用して開発を再開する場合は、これらのファイルを読み込ませることで、スムーズにコンテキストを引き継ぐことができます。
+
+**Last Conversation ID**: `a53a6efe-445a-4657-95dc-b60b170f8c87`
